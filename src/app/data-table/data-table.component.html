@@ -1,0 +1,197 @@
+<div class="navbar bg-base-100 shadow-md">
+  <div class="flex-1">
+    <div *ngIf="userName else redirectToLogin">
+      <h1>Welcome, {{ userName }}</h1>
+    </div>
+  </div>
+  <div class="flex-none">
+    <div class="dropdown">
+      <label tabindex="0" class="btn btn-ghost lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor" 
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16m-7 6h7"
+          />
+        </svg>
+      </label>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+      >
+        <li><a>Home</a></li>
+        <li><a>About</a></li>
+        <li><a>Contact</a></li>
+        <li><button (click)="logout()" class="btn btn-danger">Logout</button></li>
+      </ul>
+    </div>
+    <div class="hidden lg:flex">
+      <ul class="menu menu-horizontal px-1">
+        <li><a >Home</a></li>
+          <li><a [routerLink]="'/user'">Users</a></li>
+          
+        <li><a>Contact</a></li>
+
+        <li><button (click)="logout()" class="btn btn-danger">Logout</button></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #redirectToLogin>
+  <h1>Redirecting to login...</h1>
+</ng-template>
+
+<div class="p-6 bg-base-200 min-h-screen">
+    <div class="container mx-auto">
+      <!-- Title -->
+      <h2 class="text-2xl font-bold text-center mb-6">Budget Planner</h2>
+  
+      <!-- Add Button -->
+      <button (click)="openAddModal()" class="btn btn-primary mb-4">Add Item</button>
+  
+      <!-- Search Input -->
+      <div class="form-control mb-4">
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+          placeholder="Search items..."
+          class="input input-bordered w-full"
+        />
+      </div>
+  
+      <!-- Success and Error Messages -->
+      <div *ngIf="successMessage" class="alert alert-success mb-4">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-error mb-4">
+        {{ errorMessage }}
+      </div>
+  
+      <!-- Data Table -->
+      <div class="overflow-x-auto">
+        <table class="table w-full bg-base-100 rounded-lg shadow-lg">
+          <thead>
+            <tr>
+              <th>Expenses Title</th>
+              <th>Budget</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of paginatedData" (click)="navigateToDetails(item.id, item.title_of_expenses)">
+              <td>{{ item.title_of_expenses }}</td>
+              <td>{{ item.budget }}</td>
+              <td> ₱ {{ item.total_cost  }}</td> <!-- Display total cost here -->
+              <td>
+              <td>
+                <div class="flex space-x-2">
+                  <button (click)="selectItem(item); $event.stopPropagation()" class="btn btn-warning btn-xs">Edit</button>
+                  <button (click)="deleteItem(item.id); $event.stopPropagation()" class="btn btn-error btn-xs">Delete</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- Pagination Controls -->
+      <div class="flex justify-center space-x-2 mt-4 float-right">
+        <button 
+          (click)="changePage('prev')" 
+          class="btn btn-sm btn-primary" 
+          [disabled]="currentPage === 1">
+          Previous
+        </button>
+        <button 
+          *ngFor="let page of pageNumbers" 
+          (click)="goToPage(page)" 
+          class="btn btn-sm" 
+          [class.btn-primary]="currentPage === page" 
+          [class.btn-outline]="currentPage !== page">
+          {{ page }}
+        </button>
+        <button 
+          (click)="changePage('next')" 
+          class="btn btn-sm btn-primary" 
+          [disabled]="currentPage === totalPages">
+          Next
+        </button>
+      </div>
+      
+  
+      <div *ngIf="showAddModal" class="modal modal-open">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Add Item</h3>
+          <form (ngSubmit)="save()">
+            <div class="form-control mb-4">
+              <label class="label">Expenses Title</label>
+              <input
+                type="text"
+                [(ngModel)]="expensestitle"
+                name="name"
+                class="input input-bordered w-full"
+                required
+              />
+            </div>
+            <div class="form-control mb-4">
+              <label class="label">Budget</label>
+              <input
+                type="number"
+                [(ngModel)]="budget"
+                name="age"
+                class="input input-bordered w-full"
+                required
+              />
+            </div>
+            <div class="modal-action">
+              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-secondary" (click)="closeAddModal()">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+      <!-- Edit Modal -->
+      <div *ngIf="showEditModal" class="modal modal-open">
+        <div class="modal-box">
+          <h3 class="font-bold text-lg">Edit Item</h3>
+          <form (ngSubmit)="updateItem()">
+            <div class="form-control mb-4">
+              <label class="label">Name</label>
+              <input
+                type="text"
+                [(ngModel)]="selectedItem!.title_of_expenses"
+                name="editName"
+                class="input input-bordered w-full"
+                required
+              />
+            </div>
+            <div class="form-control mb-4">
+              <label class="label">Age</label>
+              <input
+                type="number"
+                [(ngModel)]="selectedItem!.budget"
+                name="editAge"
+                class="input input-bordered w-full"
+                required
+              />
+            </div>
+            <div class="modal-action">
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+              <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

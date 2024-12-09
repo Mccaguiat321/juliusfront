@@ -1,0 +1,140 @@
+<div [class.dark]="isDarkMode" class="min-h-screen transition-colors bg-white dark:bg-gray-900 text-black dark:text-white">
+    <!-- Navbar -->
+    <nav class="navbar bg-base-200 shadow-md px-4 sticky top-0 z-50">
+        <div class="navbar-start">
+          <a class="btn btn-ghost normal-case text-xl text-white">Budget Planner</a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
+            <li><a href="#features" class="text-base-content dark:text-white">Features</a></li>
+            <li><a href="#pricing" class="text-base-content dark:text-white">Pricing</a></li>
+            <li><a href="#testimonials" class="text-base-content dark:text-white">Testimonials</a></li>
+            <li><a href="#contact" class="text-base-content dark:text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div class="navbar-end">
+          <!-- Light/Dark Mode Toggle -->
+          <label class="swap swap-rotate">
+            <input type="checkbox" (change)="toggleTheme()">
+            <!-- Light Icon -->
+            <svg class="swap-on fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M5 12a7 7 0 1114 0 7 7 0 01-14 0zm0-2h14m-7-7v14M3.69 3.69l16.62 16.62"></path>
+            </svg>
+            <!-- Dark Icon -->
+            <svg class="swap-off fill-current w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M12 3v2M12 19v2M5.05 5.05L6.46 6.46m10.93 10.93l1.41 1.41M3 12h2M19 12h2M5.05 18.95l1.41-1.41m10.93-10.93l1.41-1.41"></path>
+            </svg>
+          </label>
+        </div>
+      </nav>
+      
+    <!-- Hero Section -->
+    <section class="hero w-full h-[90vh] flex items-center justify-between bg-cover bg-center text-gray-100 dark:bg-gray-900 dark:text-white" >
+        <!-- Text Content -->
+        <div class="hero-content flex flex-col items-start max-w-lg pl-8">
+            <h1 class="text-5xl font-bold">Take Control of Your Finances</h1>
+            <p class="mt-4 text-lg">Plan, track, and achieve your financial goals with our intuitive budget planner.</p>
+            <a href="/login" class="btn btn-primary mt-6">Login</a>
+        </div>
+        <!-- Image Section -->
+        <div class="hero-image flex-1 hidden lg:block">
+            <img src="11116-removebg-preview.png" alt="Finance Image" class="w-full h-full object-cover" />
+        </div>
+
+
+        
+        
+    </section>
+    
+      
+  
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-100 dark:bg-gray-800 text-black dark:text-white">
+      <div class="container mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-6">Key Features</h2>
+        <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8">
+          <div class="card shadow-lg bg-white dark:bg-gray-700">
+            <h3 class="font-bold text-xl">Track Expenses</h3>
+            <p class="mt-2">Stay on top of your spending habits effortlessly.</p>
+          </div>
+          <div class="card shadow-lg bg-white dark:bg-gray-700">
+            <h3 class="font-bold text-xl">Set Budgets</h3>
+            <p class="mt-2">Define limits and receive alerts when overspending.</p>
+          </div>
+          <div class="card shadow-lg bg-white dark:bg-gray-700">
+            <h3 class="font-bold text-xl">Get Insights</h3>
+            <p class="mt-2">Analyze your financial health with detailed reports.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- <div class="receipt-container">
+      <h2 class="store-name">My Store</h2>
+      <p class="address">123 Main St, City, Country</p>
+      <p class="phone">Phone: (123) 456-7890</p>
+      <hr />
+      
+      <div class="items">
+        <div class="item" *ngFor="let item of receiptData.items">
+          <span>{{ item.name }}</span>
+          <span class="price">${{ item.price.toFixed(2) }}</span>
+        </div>
+      </div>
+      
+      <hr />
+      <div class="total">
+        <span>Total: </span>
+        <span class="price">${{ receiptData.total.toFixed(2) }}</span>
+      </div>
+      
+      <button class="btn btn-primary mt-4" (click)="printReceipt()">Print Receipt</button>
+    </div>
+     -->
+  
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-white dark:bg-gray-900 text-black dark:text-white">
+      <div class="container mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-6">Pricing Plans</h2>
+        <div class="grid lg:grid-cols-3 gap-8">
+          <div class="card shadow-lg bg-gray-50 dark:bg-gray-800">
+            <h3 class="font-bold text-2xl">Basic</h3>
+            <p class="mt-2">$0/month</p>
+            <button class="btn btn-primary mt-4">Choose Plan</button>
+           
+
+          </div>
+          <div class="card shadow-lg bg-gray-50 dark:bg-gray-800">
+            <h3 class="font-bold text-2xl">Pro</h3>
+            <p class="mt-2">$9.99/month</p>
+            <button class="btn btn-primary mt-4">Choose Plan</button>
+          </div>
+          <div class="card shadow-lg bg-gray-50 dark:bg-gray-800">
+            <h3 class="font-bold text-2xl">Enterprise</h3>
+            <p class="mt-2">Contact Us</p>
+            <button class="btn btn-primary mt-4">Contact Us</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Footer -->
+    <footer class="footer p-10 bg-base-200 text-base-content dark:bg-gray-800 text-black dark:text-white">
+      <div>
+        <span class="footer-title">Company</span>
+        <a href="#" class="link link-hover">About us</a>
+        <a href="#" class="link link-hover">Contact</a>
+        <a href="#" class="link link-hover">Jobs</a>
+      </div>
+      <div>
+        <span class="footer-title">Social</span>
+        <a href="#" class="link link-hover">Facebook</a>
+        <a href="#" class="link link-hover">Twitter</a>
+        <a href="#" class="link link-hover">Instagram</a>
+
+   
+      </div>
+    </footer>
+  </div>
+  

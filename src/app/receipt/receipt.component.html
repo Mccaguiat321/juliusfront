@@ -1,0 +1,8 @@
+<div class="receipt-container">
+  <h2>Receipt</h2>
+  <ul>
+    <li *ngFor="let item of items">{{ item.name }} - ${{ item.price }}</li>
+  </ul>
+  <p>Total: ${{ total }}</p>
+  <button class="btn btn-primary" (click)="printReceipt()">Print Receipt</button>
+</div>

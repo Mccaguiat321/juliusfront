@@ -1,0 +1,87 @@
+<div class="flex items-center justify-center min-h-screen bg-base-200">
+  <div class="card shadow-xl w-full max-w-sm bg-base-100">
+    <div class="card-body">
+      <h2 class="text-2xl font-bold text-center">Register</h2>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <!-- Name Field -->
+        <div class="form-control">
+          <label for="name" class="label">
+            <span class="label-text">Name</span>
+          </label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            class="input input-bordered"
+            placeholder="Enter your name"
+          />
+          <p *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-error">
+            Name is required.
+          </p>
+        </div>
+
+        <!-- Age Field -->
+        <div class="form-control">
+          <label for="age" class="label">
+            <span class="label-text">Age</span>
+          </label>
+          <input
+            id="age"
+            type="number"
+            formControlName="age"
+            class="input input-bordered"
+            placeholder="Enter your age"
+            min="1"
+          />
+          <p *ngIf="registerForm.get('age')?.invalid && registerForm.get('age')?.touched" class="text-error">
+            Please enter a valid age.
+          </p>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-control">
+          <label for="password" class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="input input-bordered"
+            placeholder="Enter your password"
+          />
+          <p *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-error">
+            Password must be at least 6 characters long.
+          </p>
+        </div>
+
+        <!-- Register Button -->
+        <div class="form-control mt-4">
+          <button
+            type="submit"
+            class="btn btn-primary w-full"
+            [disabled]="!registerForm.valid"
+          >
+            Register
+          </button>
+        </div>
+      </form>
+
+      <!-- Success Message -->
+      <p *ngIf="successMessage" class="text-success text-center mt-2">
+        {{ successMessage }}
+      </p>
+
+      <!-- Error Message -->
+      <p *ngIf="errorMessage" class="text-error text-center mt-2">
+        {{ errorMessage }}
+      </p>
+
+      <!-- Login Link -->
+      <p class="text-center mt-4 text-sm">
+        Already have an account?
+        <a routerLink="/login" class="link link-primary">Login</a>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="flex items-center justify-center min-h-screen bg-base-100">
+  <div class="card shadow-xl w-96 bg-base-100">
+    <div class="card-body">
+      <h2 class="text-2xl font-bold text-center">Login</h2>
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="space-y-4">
+        <!-- Username Field -->
+        <div class="form-control">
+          <label for="name" class="label">
+            <span class="label-text">Username</span>
+          </label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            class="input input-bordered"
+            placeholder="Enter your username"
+            required
+          />
+        </div>
+        <!-- Password Field -->
+        <div class="form-control">
+          <label for="password" class="label">
+            <span class="label-text">Password</span>
+          </label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="input input-bordered"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <!-- Login Button -->
+        <div class="form-control mt-4">
+          <button
+            type="submit"
+            class="btn btn-primary w-full"
+            [disabled]="!loginForm.valid"
+          >
+            Login
+          </button>
+        </div>
+      </form>
+      <!-- Error Message -->
+      <p *ngIf="errorMessage" class="text-error text-center mt-2">
+        {{ errorMessage }}
+      </p>
+      <!-- Register Link -->
+      <p class="text-center mt-4 text-sm">
+        Don't have an account?
+        <a href="/register" class="link link-primary">Register</a>
+      </p>
+    </div>
+  </div>
+</div>
